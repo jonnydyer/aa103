@@ -1,0 +1,1079 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{SpecificImpulseEfficiency}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+        \PY{o}{\PYZpc{}}\PY{k}{config} InlineBackend.figure\PYZus{}format = \PYZsq{}retina\PYZsq{}
+        \PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mf}{2.5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{serif}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}rc(\PYZsq{}xtick\PYZsq{}, labelsize=\PYZsq{}small\PYZsq{})}
+        \PY{c+c1}{\PYZsh{}rc(\PYZsq{}ytick\PYZsq{}, labelsize=\PYZsq{}small\PYZsq{})}
+        
+        \PY{k}{def} \PY{n+nf}{fix\PYZus{}fig}\PY{p}{(}\PY{n}{f}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{f}\PY{o}{.}\PY{n}{get\PYZus{}axes}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{n}{a}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{n+nb+bp}{False}\PY{p}{)}
+                \PY{n}{a}\PY{o}{.}\PY{n}{spines}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{n+nb+bp}{False}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} Only show ticks on the left and bottom spines}
+                \PY{c+c1}{\PYZsh{}a.yaxis.set\PYZus{}ticks\PYZus{}position(\PYZsq{}left\PYZsq{})}
+                \PY{n}{a}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}ticks\PYZus{}position}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{f}\PY{o}{.}\PY{n}{set\PYZus{}tight\PYZus{}layout}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Bad key "axes.color\_cycle" on line 240 in
+/Users/jonny/Library/Mobile Documents/com\textasciitilde{}apple\textasciitilde{}CloudDocs/Documents/YHayPi/aa103/matplotlibrc.
+You probably need to get an updated matplotlibrc file from
+http://github.com/matplotlib/matplotlib/blob/master/matplotlibrc.template
+or from the matplotlib source distribution
+
+    \end{Verbatim}
+
+    \section{Specific Impulse, SFC and
+Efficiencies}\label{specific-impulse-sfc-and-efficiencies}
+
+\subsubsection{Assumptions for topics already
+covered}\label{assumptions-for-topics-already-covered}
+
+\begin{itemize}
+\tightlist
+\item
+  Equation for thrust -
+  \(T = \dot{m}_{in}(U_e - U_0) + (P_e - P_0)A_e + \dot{m}_pU_e\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Reduces to \(T = (P_e - P_0)A_e + \dot{m}_pU_e\) for rocket case
+  \end{itemize}
+\item
+  Rocket equation - \(\Delta V = C \ln \frac{m_0}{m_f}\)
+\item
+  Isentropic flow through nozzles, critical flow, supersonic flow in de
+  laval nozzle
+\end{itemize}
+
+\subsection{C and Isp}\label{c-and-isp}
+
+Now that we have covered the basic mechanics of thrust and the
+isentropic nozzle relations we will begin to show how these apply to
+rockets by defining a set of convenient parameters.
+
+Let's start by remembering that, for a rocket
+
+\[T = (P_e - P_0)A_e + \dot{m}_pU_e\]
+
+Our intuition tells us that a good parameter for the effectiveness of a
+rocket is the quotient of thrust (what we want) with propellant mass
+flowrate (what we have to pay):
+
+\[\frac{T}{\dot{m}} = (P_e - P_0)\frac{Ae}{\dot{m}} + U_e\]
+
+This parameter is called effective exhaust velocity,
+\(C = \frac{T}{\dot{m}}\) and is one of the most important in rocketry.
+It figures prominently in the Rocket Equation
+
+\[\Delta V = C \ln \frac{M_0}{M_f}\]
+
+which we will be derived in a couple lectures.
+
+If we assume \(T\) and \(\dot{m}\) are completely independent (which we
+will see is not always true), we can also interpret \(C\) as
+
+\[C = \frac{\int T dt}{\int \dot{m} dt} = \frac{I}{M_p}\]
+
+which is how much total impulse we get from a unit mass of propellant.
+This interpretation points to a very closely related parameter called
+Specific Impulse, \(I_{sp}\):
+
+\[I_{sp} = \frac{C}{g_0} = \frac{T}{g_0\dot{m}}\]
+
+Notice that \(I_{sp}\) is just \(C\) normalized by Earth's gravitational
+acceleration with overall units of seconds. While at first a bit
+non-sensical, \(I_{sp}\) makes sense when you consider your propellant
+consumption as a weight flowrate rather than a mass-flowrate and so you
+are dividing thrust (a force) by weight flowrate (force per time) to
+arrive at a time. The etymology of \(I_{sp}\) is rooted in the fact that
+for imperial units we typically work in lbm. rather than slugs.
+
+And while weird at first, the units of seconds do have some intuitive
+utility. For a rocket with \(I_{sp} = 100 \text{s}\) a unit mass, \(m\)
+of propellant can generate \(T=g_0 m\) thrust for 100 seconds or
+\(T = 100 g_0 m\) thrust for one second.
+
+Specific impulse is popularly spoken of as the "gas mileage" for a
+rocket cycle and this is fairly reasonable - it fundamentally indicates
+how much bang for the buck you get. I'll jump the gun just a bit for the
+sake of intuition and give some typical \(I_{sp}\) values for different
+types of propulsion:
+
+\begin{verbatim}
+<th>Technology</th>
+<th>Isp (s)</th>
+<th>Exhaust Velocity (m/s)</th>
+\end{verbatim}
+
+\begin{verbatim}
+<td>Reflective Photon Propulsion</td>
+<td>$\infty$</td>
+<td>$\infty$</td>
+\end{verbatim}
+
+\begin{verbatim}
+<td>Electric Propulsion</td>
+<td>1000 - 10,000</td>
+<td>9,800 - 98,000</td>
+\end{verbatim}
+
+\begin{verbatim}
+<td>Nuclear Thermal / Beamed Energy Propulsion</td>
+<td>600 - 1,000</td>
+<td>5,900 - 9,800</td>
+\end{verbatim}
+
+\begin{verbatim}
+<td>Bipropellant Chemical Propulsion</td>
+<td>200 - 500</td>
+<td>2,000 - 4,900</td>
+\end{verbatim}
+
+\begin{verbatim}
+<td>Monopropellant Chemical Propulsion</td>
+<td>100 - 250</td>
+<td>980 - 2,450</td>
+\end{verbatim}
+
+\begin{verbatim}
+<td>Cold Gas Propulsion</td>
+<td>10 - 120</td>
+<td>100 - 1,150</td>
+\end{verbatim}
+
+I bet you're intrigued by the first row... not to worry this will be
+covered later in the course.
+
+This is all well and good, but all we have really done at this point is
+some algebra. What we really are interested in as engineers is how do I
+get the most gas mileage out of my rocket. And for that discussion,
+we'll first define another couple useful parameters.
+
+    \subsection{c*}\label{c}
+
+No we will go back, for a moment, to choked compressible flow. With the
+isentropic flow equations and the \(M=1\) choked condition, we can
+derive (assuming constant \(C_p\), \(C_v\) and \(R\)):
+
+\[\dot{m} = \rho_c a_c A_c  = \rho_t \left[ \frac{\rho_c}{\rho_t}\right]a_0 \left[ \frac{a_c}{a_t}\right]A_c = \frac{P_t A_c}{\sqrt{\frac{R T_t}{\gamma}}} \left[\frac{\gamma + 1}{2}\right]^{\frac{2(\gamma-1)}{\gamma+1}}\]
+
+remembering that the \(t\) subscript denotes the total or stagnation
+condition and the \(c\) subscript denotes choked (\(M=1\)) condition.
+This is a very useful relationship as it allows us to compute the mass
+flowrate through a choked nozzle as a function of only nozzle throat
+area, \(A_c\), ideal gas properties and the stangation condition
+temperature and pressure.
+
+Let's define a new parameter, called characteristic velocity and denoted
+\(c^{*}\) using this result:
+
+\[c^* = \frac{P_t A_c}{\dot{m}} = \sqrt{\frac{R T_t}{\gamma}}\left[\frac{\gamma + 1}{2}\right]^{\frac{\gamma + 1}{2(\gamma - 1)}}\]
+
+\(c^*\) is useful far beyond simple choked flow considerations because
+it can be both \textbf{measured} and \textbf{computed}. And indeed the
+equation above shows this directly - the LHS is a function relatively
+measure-able variables pressure, area and mass flowrate. The RHS is a
+function of intrinsic gas properties \(\gamma\), \(R\) and stagnation
+temperature. \(c^*\) gives us the tools to calculate a parameter (RHS)
+that we can go and easily measure in the lab (LHS).
+
+Given that \(c^*\) depends on \(\gamma\), \(R\) and \(T_t\) it is
+essentially a function only of the working fluids thermodynamic
+properties and stagnation (chamber state). This is not 100\% true - when
+we get to combustion we will see how a (weak) dependency on pressure
+comes back into \(c^*\), but for conceptual purposes we should think of
+\(c^*\) this way - as only a function of intrinsic thermodynamic
+properties of our propellants.
+
+And so finally we come to a very interesting result regarding the
+functional dependence of \(c^*\):
+
+\[c^* = f(T_t, M_w, \gamma)\]
+
+\(R\) is the specific gas constant \(R = \frac{R_u}{M_w}\) which is
+inversely dependent on gas molecular weight, \(M_w\). We can say that
+
+\[c^* \propto \sqrt{\frac{T_t}{M_w}}\]
+
+Moreover \(T_t\) is related to the gas internal stagnation enthalpy by
+\(\Delta h_t = \int_{T_0}^{T_t} C_p dT\) and so we should see \(T_t\) as
+a representation of the \textbf{energy content} of the rocket gasses.
+
+The effect of \(\gamma\) on \(c^*\) is a bit more subtle. \(\gamma\) is
+fundamentally related to the number of vibratory degrees of freedom a
+molecule has. For monatomic systems (such as helium or atomic hydrogen)
+\(\gamma\) assymptotes to an upper limit of 1.66. For most simple
+diatoms (nitrogen, oxygen, hydrogen) it is around 1.4 and for larger
+molecules or those with more complex bonding it is lower. For the
+conditions we are interested in within a rocket, we wouldn't expect to
+find \(\gamma\) much lower than 1.1.
+
+The plot below shows the effect of \(\gamma\) on \(c^*\) which is fairly
+limited compared with \(T_t\) and \(M_w\). And so if you take one thing
+away from this discussion, remember that
+
+\[c^* \propto \sqrt{\frac{\Delta h_t}{\overline{C_p} M_w}}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{gamma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{1.1}\PY{p}{,} \PY{l+m+mf}{1.66}\PY{p}{)}
+        \PY{n}{cstar\PYZus{}gamm} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{/} \PY{n}{gamma}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.} \PY{o}{/} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)}\PY{p}{)}
+        \PY{n}{f} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gamma}\PY{p}{,} \PY{n}{cstar\PYZus{}gamm} \PY{o}{/} \PY{n}{cstar\PYZus{}gamm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{gamma\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}c\PYZca{}*\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{fix\PYZus{}fig}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+        \PY{n}{f}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{imgs/cstar\PYZus{}gamma.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jonny/anaconda/lib/python2.7/site-packages/matplotlib/figure.py:2299: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
+  warnings.warn("This figure includes Axes that are not compatible "
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{\texorpdfstring{\(C_f\)}{C\_f}}\label{c_f}
+
+Ok, that's interesting, but for the purposes of rocket performance we
+want \(C\) not \(c^*\). Take a look at the definition of \(c^*\) and it
+looks a lot like our definition of effective velocity and specific
+impulse above:
+
+\[c^* = \frac{P_t A_c}{\dot{m}} \sim \frac{T}{\dot{m}} = C\]
+
+and indeed \(c^*\) and \(C\) \textbf{are} closely related.
+
+In order to see how, let's define another new parameter, \(C_f\) that
+related thrust to the nozzle throat area and rocket total pressure:
+
+\[C_f = \frac{T}{P_t A_c}\]
+
+In prose this says:
+
+\begin{quote}
+\(C_f\) represents the amount of thrust a rocket can produce given the
+stagnation pressure of its propellants and a useful characteristic fluid
+area - the choked area of its nozzle.
+\end{quote}
+
+Stated differently it is a measure of how effectively we take the
+stagnation pressure we generate and turn it into thrust.
+
+And since \(c^*\) is also defined by chamber pressure and nozzle throat
+area, \(C_f\) becomes the connection between \(C\) and \(c^*\):
+
+\[C = \frac{T}{\dot{m}} = \frac{C_f P_t A_c}{\dot{m}} = C_f c^*\]
+
+But why split \(C\) into \(C_f\) and \(c^*\) this way?
+
+Remember that \(c^*\) represents the potential of the rocket propellants
+themselves to create thrust and essentially depends exclusively on the
+thermodynamic characteristics of those propellants. \(C_f\) represents
+how well our nozzle can convert the propellant's latent utility into
+real thrust and thus depends almost exclusively on the physical nature
+of our nozzle. And so as we go about maximizing \(C\), we can divide
+that into two separate problems - one of picking propellants (\(c^*\))
+and the other of chosing system pressures and nozzle geometry (\(C_f\)).
+
+Since the primary role of the nozzle is to convert gasses into thrust
+\(C_f\) can also be seen as a measure of the "goodness" of the nozzle.
+It is called \textbf{thrust coefficient}.
+
+\(C_f\) can be expanded from its definition above:
+
+\[C_f = \frac{C}{c^*} = \frac{(P_e - P_0)\frac{A_e}{\dot{m}} + U_e}{\frac{P_t A_c}{\dot{m}}} = \frac{P_e - P_0}{P_t}\frac{A_e}{A_c} + \frac{U_e}{c^*}\]
+
+It is worth noting that, like the thrust equation, there are two pieces
+to \(C_f\) - \(\frac{P_e - P_0}{P_t}\frac{A_e}{A_c}\) is representative
+of thrust created through pressure force and \(\frac{U_e}{c^*}\) is
+representative of the contribution of gas momentum to thrust. We will
+refer to these two components when we discuss optimal nozzle expansion
+in a minute.
+
+Beyond this things get a little messy and different people attack the
+derivation different ways. Rather than putting a whole bunch of alegbra
+in here, I'm going to provide you the tools needed to compute \(C_f\)
+practically.
+
+\(\frac{U_e}{c^*}\), \(\frac{P_e}{P_t}\) and \(\frac{A_e}{A_c}\) are all
+related to the isentropic expansion of gasses through the nozzle to its
+exit. The exit mach number, \(M_e\) thus becomes the common parameter
+and using classic isentropic relations we can derive the functional
+relationship of each with \(M_e\) as the independent variable:
+
+\[\frac{U_e}{c^*} = \frac{\gamma M_e}{\sqrt{1 + \frac{\gamma - 1}{2}M_e^2}}\left[\frac{\gamma + 1}{2}\right]^{\frac{\gamma + 1}{-2(\gamma-1)}}\]
+
+\[\frac{P_e}{P_t} = \left(1 + \frac{\gamma - 1}{2}M_e^2\right)^{\frac{-\gamma}{\gamma-1}}\]
+
+\[\frac{A_e}{A_c} = \left[\frac{\gamma + 1}{2}\right]^{\frac{\gamma + 1}{-2(\gamma - 1)}} \frac{\left(1 + \frac{\gamma-1}{2}M_e^2 \right)^{\frac{\gamma + 1}{2(\gamma - 1)}}}{M_e}\]
+
+This is a useful form because it shows very clearly that
+\(\frac{U_e}{c^*}\), \(\frac{P_e}{P_t}\) and \(\frac{A_e}{A_c}\) are not
+all independent (they all depend on \(M_e\)). In fact the dimensionality
+of this set is one - picking a number for any one of these directlys
+sets the others. Furthermore note that these equations, unlike \(c^*\),
+have \textbf{no depdencency on stagnation temperature or \(M_w\) and
+thus no direct dependency on propellant properties}. They do depend on
+\(\gamma\) which is a property of the working fluid but as with \(c^*\),
+the dependence is not terribly strong and is really set for us by the
+propellant choice we made in optimizing \(c^*\).
+
+I'd like to look at how the parameter we can control directly,
+\(\frac{A_e}{A_c}\), affects the others and \(C_f\). Using the equations
+above, we will sweep through \(M_e\) and compute the other parameters
+directly.
+
+    \subsection{Optimal Nozzle Expansion}\label{optimal-nozzle-expansion}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{gamma} \PY{o}{=} \PY{l+m+mf}{1.4}
+         \PY{n}{P0\PYZus{}Pt} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{Pe\PYZus{}P0} \PY{o}{=} \PY{l+m+mf}{1.}
+         
+         \PY{n}{Me} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         
+         \PY{n}{Ae\PYZus{}Ac} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.}\PY{o}{/}\PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{Me} \PY{o}{*} 
+                     \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{+} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.} \PY{o}{*} \PY{n}{Me}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}\PY{o}{/}\PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{Pe\PYZus{}Pt} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{+} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.} \PY{o}{*} \PY{n}{Me}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{gamma} \PY{o}{/} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{Cf\PYZus{}mom} \PY{o}{=} \PY{p}{(}\PY{n}{gamma} \PY{o}{*} \PY{n}{Me} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{Me}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} 
+                     \PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{gamma}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{Cf\PYZus{}mom} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{gamma}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{*} 
+                     \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{Pe\PYZus{}Pt}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{n}{gamma}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{Cf\PYZus{}press} \PY{o}{=} \PY{p}{(}\PY{n}{Pe\PYZus{}Pt} \PY{o}{\PYZhy{}} \PY{n}{P0\PYZus{}Pt}\PY{p}{)} \PY{o}{*} \PY{n}{Ae\PYZus{}Ac}
+         
+         \PY{n}{f} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{311}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{frac\PYZob{}P\PYZus{}0\PYZcb{}\PYZob{}P\PYZus{}t\PYZcb{} = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{P0\PYZus{}Pt}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pe\PYZus{}Pt} \PY{o}{/} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Cf\PYZus{}mom}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cf (momentum)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{FormatStrFormatter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}C\PYZus{}f\PYZdl{} (momentum)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{Cf\PYZus{}mom}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{Cf\PYZus{}mom}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pe\PYZus{}Pt} \PY{o}{/} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Cf\PYZus{}press}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}yticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{Cf\PYZus{}press}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{Cf\PYZus{}press}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{yaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}formatter}\PY{p}{(}\PY{n}{FormatStrFormatter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}C\PYZus{}f\PYZdl{} (pressure)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}f.legend()}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{312}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{n}{ax1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pe\PYZus{}Pt} \PY{o}{/} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Cf\PYZus{}mom} \PY{o}{+} \PY{n}{Cf\PYZus{}press}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}C\PYZus{}f\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{313}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{n}{ax1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Pe\PYZus{}Pt} \PY{o}{/} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Ae\PYZus{}Ac}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{frac\PYZob{}A\PYZus{}e\PYZcb{}\PYZob{}A\PYZus{}c\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{frac\PYZob{}P\PYZus{}e\PYZcb{}\PYZob{}P\PYZus{}0\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{fix\PYZus{}fig}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+         \PY{n}{f}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{imgs/Cf.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Note that \(C_f\) reaches a maximum where \(\frac{P_e}{P_0} = 1\). This
+is called optimal expansion. It is a fundamental result in rocket theory
+and can be stated:
+
+\begin{quote}
+Rocket effective exhaust velocity (and therefore specific impulse) is
+maximized when the nozzle expands the exhaust gasses such that they
+match the local pressure at the nozzle exit.
+\end{quote}
+
+This says that, in general, we want to design a rocket nozzle to match
+the exit pressure to ambient pressure. This is difficult to do for a
+rocket ascending through the atmosphere where the pressure is
+continuosly changing. For traditional nozzles, a compromise that looks
+at the average performance over the ascent pressure profile is often
+chosen.
+
+And since the way we lower exit pressure is with a bigger expansion
+ratio, \(\epsilon = \frac{A_e}{A_c}\), this result explains why upper
+stage "vacuum nozzles" are so much bigger than first stage "sea-level"
+nozzles as can be seen in graphic above and the side-by-side of the
+SpaceX Merlin 1D vacuum (left) and Merlin 1D sea-level (right) engines:
+
+\subsection{Putting it all together}\label{putting-it-all-together}
+
+\textbf{So the separation of \(C\) into \(c^*\) and \(C_f\) separates
+concerns between propellant thermodyanmics in \(c^*\) and nozzle
+physical parameters in \(C_f\).}
+
+Let's do a quickly compute \(C\), \(c^*\) and \(C_f\) to get a sense of
+how we would begin to use them practically. Assume we start with a
+plenum full of room-temperature, high pressure nitrogen and then vent it
+into vacuum through a nozzle. We'll say our gas thermodynamic properties
+are given by:
+
+\begin{itemize}
+\tightlist
+\item
+  \(T_t = 298 \text{K}\)
+\item
+  \(\gamma = 1.4\)
+\item
+  \(M = .028 \text{kg/mol}\)
+\end{itemize}
+
+Now let's compute \(c^*\), \(C_f\) and then \(C\). For now we will
+assume optimal expansion and calculate the associated area ratio. A
+useful relation we will use to determine \(M_e\) is:
+
+\[M_e^2 = 2\left(\frac{\frac{Pe}{Pt}^{\frac{1-\gamma}{\gamma}}-1}{\gamma-1}\right) = 2\left(\frac{\left(\frac{P_e}{P_0}\frac{P_0}{P_t}\right)^{\frac{1-\gamma}{\gamma}}-1}{\gamma-1}\right)\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{gamma} \PY{o}{=} \PY{l+m+mf}{1.4}
+         \PY{n}{Ru} \PY{o}{=} \PY{l+m+mf}{8.314}
+         \PY{n}{M} \PY{o}{=} \PY{o}{.}\PY{l+m+mo}{02}\PY{l+m+mi}{8}              \PY{c+c1}{\PYZsh{} kg / mol}
+         \PY{n}{Tt} \PY{o}{=} \PY{l+m+mi}{298}              \PY{c+c1}{\PYZsh{} K}
+         \PY{n}{P0\PYZus{}Pt} \PY{o}{=} \PY{l+m+mf}{0.1}
+         \PY{n}{Pe\PYZus{}P0} \PY{o}{=} \PY{l+m+mf}{1.}
+         
+         \PY{k}{def} \PY{n+nf}{cstar\PYZus{}f}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{Tt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}\PY{p}{:}
+             \PY{n}{R} \PY{o}{=} \PY{n}{Ru} \PY{o}{/} \PY{n}{M}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{R} \PY{o}{*} \PY{n}{Tt} \PY{o}{/} \PY{n}{gamma}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Me2\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}Pt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+m+mf}{2.} \PY{o}{*} \PY{p}{(}\PY{n}{Pe\PYZus{}Pt}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{gamma}\PY{p}{)}\PY{o}{/}\PY{n}{gamma}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Ae\PYZus{}Ac\PYZus{}f}\PY{p}{(}\PY{n}{Me}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{o}{\PYZhy{}}\PY{l+m+mf}{2.}\PY{o}{/}\PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{Me} \PY{o}{*} 
+                     \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{+} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.} \PY{o}{*} \PY{n}{Me}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}\PY{o}{/}\PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Cf\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}Pt}\PY{p}{,} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Ae\PYZus{}Ac}\PY{p}{,} \PY{n}{Me}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{p}{(}\PY{p}{(}\PY{n}{Pe\PYZus{}Pt} \PY{o}{\PYZhy{}} \PY{n}{P0\PYZus{}Pt}\PY{p}{)} \PY{o}{*} \PY{n}{Ae\PYZus{}Ac} \PY{o}{+} \PY{p}{(}\PY{n}{gamma} \PY{o}{*} \PY{n}{Me} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{p}{(}\PY{n}{gamma} \PY{o}{\PYZhy{}} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{Me}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*} 
+                     \PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{gamma} \PY{o}{+} \PY{l+m+mf}{1.}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{gamma}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{cstar} \PY{o}{=} \PY{n}{cstar\PYZus{}f}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{Tt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}
+         \PY{n}{Me} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{Me2\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}P0} \PY{o}{*} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Ae\PYZus{}Ac} \PY{o}{=} \PY{n}{Ae\PYZus{}Ac\PYZus{}f}\PY{p}{(}\PY{n}{Me}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}
+         \PY{n}{Cf} \PY{o}{=} \PY{n}{Cf\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}P0} \PY{o}{*} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Ae\PYZus{}Ac}\PY{p}{,} \PY{n}{Me}\PY{p}{)}
+         \PY{n}{C} \PY{o}{=} \PY{n}{cstar} \PY{o}{*} \PY{n}{Cf}
+         
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c* = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ m/s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{cstar}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Me = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Me}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ae\PYZus{}Ac = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Ae\PYZus{}Ac}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cf = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Cf}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ m/s (Isp = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ s)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{n}{C}\PY{o}{/}\PY{l+m+mf}{9.81}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c* = 434.4 m/s
+Me = 2.2
+Ae\_Ac = 1.9
+Cf = 1.26
+C = 546.4 m/s (Isp = 55.7 s)
+
+    \end{Verbatim}
+
+    This is pretty unimpressive performance. What if we compute the same for
+helium?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{gamma} \PY{o}{=} \PY{l+m+mf}{1.66}
+          \PY{n}{M} \PY{o}{=} \PY{o}{.}\PY{l+m+mo}{004}              \PY{c+c1}{\PYZsh{} kg / mol}
+          \PY{n}{Tt} \PY{o}{=} \PY{l+m+mi}{298}
+          
+          \PY{n}{cstar} \PY{o}{=} \PY{n}{cstar\PYZus{}f}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{Tt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}
+          \PY{n}{Me} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{Me2\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}P0} \PY{o}{*} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Ae\PYZus{}Ac} \PY{o}{=} \PY{n}{Ae\PYZus{}Ac\PYZus{}f}\PY{p}{(}\PY{n}{Me}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}
+          \PY{n}{Cf} \PY{o}{=} \PY{n}{Cf\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}P0} \PY{o}{*} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Ae\PYZus{}Ac}\PY{p}{,} \PY{n}{Me}\PY{p}{)}
+          \PY{n}{C} \PY{o}{=} \PY{n}{cstar} \PY{o}{*} \PY{n}{Cf}
+          
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c* = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ m/s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{cstar}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Me = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Me}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ae\PYZus{}Ac = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Ae\PYZus{}Ac}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cf = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Cf}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ m/s (Isp = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ s)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{n}{C}\PY{o}{/}\PY{l+m+mf}{9.81}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c* = 1085.2 m/s
+Me = 2.1
+Ae\_Ac = 1.7
+Cf = 1.26
+C = 1366.9 m/s (Isp = 139.3 s)
+
+    \end{Verbatim}
+
+    And finally hydrogen....
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{gamma} \PY{o}{=} \PY{l+m+mf}{1.4}
+          \PY{n}{M} \PY{o}{=} \PY{o}{.}\PY{l+m+mo}{002}              \PY{c+c1}{\PYZsh{} kg / mol}
+          \PY{n}{Tt} \PY{o}{=} \PY{l+m+mi}{298}
+          
+          \PY{n}{cstar} \PY{o}{=} \PY{n}{cstar\PYZus{}f}\PY{p}{(}\PY{n}{M}\PY{p}{,} \PY{n}{Tt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}
+          \PY{n}{Me} \PY{o}{=} \PY{n}{sqrt}\PY{p}{(}\PY{n}{Me2\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}P0} \PY{o}{*} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}\PY{p}{)}
+          \PY{n}{Ae\PYZus{}Ac} \PY{o}{=} \PY{n}{Ae\PYZus{}Ac\PYZus{}f}\PY{p}{(}\PY{n}{Me}\PY{p}{,} \PY{n}{gamma}\PY{p}{)}
+          \PY{n}{Cf} \PY{o}{=} \PY{n}{Cf\PYZus{}f}\PY{p}{(}\PY{n}{Pe\PYZus{}P0} \PY{o}{*} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{P0\PYZus{}Pt}\PY{p}{,} \PY{n}{Ae\PYZus{}Ac}\PY{p}{,} \PY{n}{Me}\PY{p}{)}
+          \PY{n}{C} \PY{o}{=} \PY{n}{cstar} \PY{o}{*} \PY{n}{Cf}
+          
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c* = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ m/s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{cstar}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Me = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Me}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ae\PYZus{}Ac = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Ae\PYZus{}Ac}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cf = }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{Cf}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ m/s (Isp = }\PY{l+s+si}{\PYZpc{}.1f}\PY{l+s+s1}{ s)}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{n}{C}\PY{o}{/}\PY{l+m+mf}{9.81}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+c* = 1625.5 m/s
+Me = 2.2
+Ae\_Ac = 1.9
+Cf = 1.26
+C = 2044.5 m/s (Isp = 208.4 s)
+
+    \end{Verbatim}
+
+    The conclusion from this is that even before we get to chemistry, we can
+see how wonderful of a working fluid Hydrogen is due to it's low
+molecular weight. Remember this because hydrogen will emerge again and
+again as we talk about rockets.
+
+As far as a gas goes, Helium is also pretty good and indeed for cold-gas
+propulsion Helium is often a good choice. However, being a noble gas,
+helium is useless for its chemical energy (remember \(T_t\) is equally
+important to \(M_w\) and so is will never be competetive with the
+reacting propellants we will discuss when we get to combustion.
+
+    \subsection{Energy, thermodynamics and
+efficiency}\label{energy-thermodynamics-and-efficiency}
+
+So far we have concentrated on propulsion primarily from a conservation
+of momentum perspective. But there are a lot interesting observations to
+be made when we look at the thermodynamics of propulsion as well.
+
+With rocket propulsion and things in space we are talking about
+\textbf{a lot of energy} and to put that in to context, let's see how
+much energy our Low Earth Orbit satellite ends up with.
+
+An object moving in a conservative potential field (like Earth's
+gravity) has total energy:
+
+\[E = \text{KE} + \text{PE} = \frac{m v^2}{2} + \frac{GMm}{r}\]
+
+or in \textbf{mass-specific energy}
+
+\[\epsilon = \frac{v^2}{2} + \frac{GM}{r}\]
+
+In the case of our satellite in a circular Low Earth Orbit this comes
+out to:
+
+\[\epsilon = \frac{v^2}{2} + \frac{\mu}{r_0} - \frac{\mu}{r} = 29.1 \text{MJ/kg} + 4.5 \text{MJ/kg} = \mathbf{33.6} \textbf{MJ/kg}\]
+
+Again note how much of this is due to the orbital velocity of the
+rocket. And to put in context just how much energy this is, it is
+equivalent to:
+
+\begin{itemize}
+\tightlist
+\item
+  1000x the specific energy of a Jet airliner at 650MPH
+\item
+  5x the specific chemical energy content of nitroglycerin
+\item
+  3x the required specific energy to melt aluminum
+\end{itemize}
+
+It is no wonder that not much is left when object with this much energy
+slams into the atmosphere!
+
+    \subsubsection{Rocket efficiency}\label{rocket-efficiency}
+
+Clearly there is a lot of energy being liberated in rocket engines in
+order to put things into space. But how efficient are they?
+
+There are different ways to define energy efficiency, but the the first
+we'll look at is the \textbf{thermal efficiency} or how effectively a
+rocket takes input energy and converts it to gas kinetic energy:
+
+\[\eta_{thermal} = \frac{\dot{W}_{exhaust}}{P_{in}} = \frac{\dot{m}C^2}{2P_{in}}\]
+
+where \(P_{in}\) is the amount of energy being liberated in time to
+power the rocket whether be chemical energy, nuclear or electrical. In
+the case of chemical rockets we can define it as the energy released by
+the propellants when they combust or:
+
+\[P_{in} = \dot{m} \Delta h^0_{rxn}\]
+
+We saw the following equation in a previous chapter:
+
+\[C = \sqrt{\frac{\gamma R T_0 M_e^2}{1+\frac{\gamma-1}{2}M_e^2}} \left[1 +\frac{1}{\gamma M_e^2}\left(1-\frac{P_0}{P_e}\right)\right]\]
+
+If we assume an optimized nozzle with \(P_e = P_0\) so that the right
+part of the equation drops out, and assume \(M_e = 7\):
+
+\[C^2 \sim \frac{59R_uT_0}{5.9M_w} \approx \frac{10 R_u\Delta h^0_{rxn}}{\overline{C_p}M_w}\]
+
+Combining these results and
+
+\[\eta_{thermal} \approx \frac{10R_u}{C_p M_w}\]
+
+If we assume \(M_w = 12 \text{g / mol}\) and
+\(\frac{R_u}{\overline{C_p}} \approx \frac{2}{3}\) we get:
+
+\[\eta_{thermal} = \frac{2 \times 10}{3 \times 12} = 56\%\]
+
+This is pretty good for a heat engine! But the efficiency of
+accelerating gasses is not really what we care about - we care about the
+efficiency of accelerating the vehicle.
+
+    To understand that, we will define another effiency metric, called
+\textbf{propulsive efficiency} as such
+
+\[\eta_{prop} = \frac{\dot{W}_{r}}{\dot{W}_{r} + \dot{W}_{exhaust}} = \frac{Tv}{Tv + \frac{1}{2}\dot{m}(C - v)^2}\]
+
+or the fraction of total work that actually goes to accelerating the
+vehicle.
+
+\[\frac{Tv}{Tv + \frac{1}{2}\dot{m}(C - v)^2} = \frac{\dot{m}C v}{\dot{m}\left[C v + (C-v)^2\right]}\]
+
+\[\rightarrow \eta_{prop} = 2\frac{\frac{v}{C}}{1+(\frac{v}{C})^2}\]
+
+The overall efficiency is \[\eta = \eta_{thermal}\eta_{prop}\]
+
+A small example demonstrating how \(\eta\) varies over ratio of vehicle
+speed to exhaust speed, \(\frac{v}{C}\) is shown below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{Ru} \PY{o}{=} \PY{l+m+mf}{8.314}        \PY{c+c1}{\PYZsh{} J / mol\PYZhy{}K}
+          \PY{n}{Mw} \PY{o}{=} \PY{l+m+mf}{15e\PYZhy{}3}      \PY{c+c1}{\PYZsh{} kg / mol}
+          \PY{n}{Cf\PYZus{}max} \PY{o}{=} \PY{l+m+mf}{2.2}
+          \PY{n}{Cv0} \PY{o}{=} \PY{l+m+mi}{5} \PY{o}{/} \PY{l+m+mf}{2.} \PY{o}{*} \PY{n}{Ru} \PY{o}{/} \PY{n}{Mw}
+          \PY{n}{Cp0} \PY{o}{=} \PY{n}{Cv0} \PY{o}{+}  \PY{n}{Ru} \PY{o}{/} \PY{n}{Mw}
+          \PY{n}{k} \PY{o}{=} \PY{n}{Cp0}\PY{o}{/}\PY{n}{Cv0}
+          
+          \PY{k}{def} \PY{n+nf}{carnot}\PY{p}{(}\PY{n}{Th}\PY{p}{,} \PY{n}{Tc}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{l+m+mf}{1.} \PY{o}{\PYZhy{}} \PY{n}{Tc} \PY{o}{/} \PY{n}{Th}
+          
+          \PY{k}{def} \PY{n+nf}{cstar}\PY{p}{(}\PY{n}{Tt}\PY{p}{,} \PY{n}{Mw}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{k} \PY{o}{*} \PY{n}{Ru} \PY{o}{/} \PY{n}{Mw} \PY{o}{*} \PY{n}{Tt}\PY{p}{)} \PY{o}{/} \PY{n}{k} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{/} \PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{n}{k}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{eff\PYZus{}propulsive}\PY{p}{(}\PY{n}{U\PYZus{}C}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{l+m+mf}{2.} \PY{o}{*} \PY{n}{U\PYZus{}C} \PY{o}{/} \PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{+} \PY{p}{(}\PY{n}{U\PYZus{}C}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{n}{T0} \PY{o}{=} \PY{l+m+mf}{300.}
+          \PY{n}{Tt} \PY{o}{=} \PY{l+m+mf}{3000.}
+          \PY{n}{hg} \PY{o}{=} \PY{n}{Tt} \PY{o}{*} \PY{n}{Cp0}
+          
+          \PY{n}{Cmax} \PY{o}{=} \PY{n}{Cf\PYZus{}max} \PY{o}{*} \PY{n}{cstar}\PY{p}{(}\PY{n}{Tt}\PY{p}{,} \PY{n}{Mw}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+          
+          \PY{n}{P\PYZus{}KE} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{Cmax}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+          \PY{n}{eta\PYZus{}KE} \PY{o}{=} \PY{n}{P\PYZus{}KE} \PY{o}{/} \PY{n}{hg}
+          \PY{n}{eta\PYZus{}Carnot} \PY{o}{=} \PY{n}{carnot}\PY{p}{(}\PY{n}{Tt}\PY{p}{,} \PY{n}{T0}\PY{p}{)}
+          
+          \PY{n}{Ur} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+          
+          \PY{n}{Cmax} \PY{o}{=} \PY{n}{Cf\PYZus{}max} \PY{o}{*} \PY{n}{cstar}\PY{p}{(}\PY{n}{Tt}\PY{p}{,} \PY{n}{Mw}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+          
+          \PY{n}{P\PYZus{}KE} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{Cmax}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+          \PY{n}{eta\PYZus{}KE} \PY{o}{=} \PY{n}{P\PYZus{}KE} \PY{o}{/} \PY{n}{hg}
+          \PY{n}{eta\PYZus{}Carnot} \PY{o}{=} \PY{n}{carnot}\PY{p}{(}\PY{n}{Tt}\PY{p}{,} \PY{n}{T0}\PY{p}{)}
+          \PY{n}{eta\PYZus{}propulsive} \PY{o}{=} \PY{n}{eff\PYZus{}propulsive}\PY{p}{(}\PY{n}{Ur} \PY{o}{/} \PY{n}{Cmax}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}plt.figure(figsize=(10,5))}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Ur}\PY{o}{/}\PY{n}{Cmax}\PY{p}{,} \PY{n}{eta\PYZus{}propulsive}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{eta\PYZus{}\PYZob{}prop\PYZcb{}\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Ur}\PY{o}{/}\PY{n}{Cmax}\PY{p}{,} \PY{n}{eta\PYZus{}propulsive} \PY{o}{*} \PY{n}{eta\PYZus{}KE}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{eta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{1.1}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}V/C\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{eta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} <matplotlib.legend.Legend at 0x12b537ed0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    And here we see another interesting result much like optimal nozzle
+expansion. The rocket is most efficient when the exhaust velocity equals
+the vehicle velocity. This is actually quite intuitive - in this
+condition the exhaust gasses are left with zero velocity in the static
+frame. There is no residual kinetic energy in the exhaust so all of it's
+kinetic energy have been transferred to the vehicle. Anywhere else the
+exhaust is left with residual kinetic energy which is a loss.
+
+    \subsubsection{Energy losses}\label{energy-losses}
+
+Let's also look at where the inefficiencies are for a launch vehicle
+with second stage engine \(I_{sp} = 340\) s and moving at 5,000 m/s.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{k+kn}{from} \PY{n+nn}{matplotlib.sankey} \PY{k+kn}{import} \PY{n}{Sankey}
+          
+          \PY{n}{f} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax} \PY{o}{=} \PY{n}{f}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+          \PY{n}{diagram} \PY{o}{=} \PY{n}{Sankey}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{flows}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mo}{02}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mo}{01}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mo}{01}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.46}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reaction}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Incomplete combustion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Heat loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Friction, etc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Second Law loss }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{(unavailable thermal energy)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Exhaust kinetic}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{energy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Useful}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{orientations}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{trunklength} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{pathlengths}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{0.6}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{finish}\PY{p}{(}\PY{p}{)}
+          \PY{n}{diagram}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{patch}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}88FF99}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{diagram}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{patch}\PY{o}{.}\PY{n}{set\PYZus{}edgecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Energy loss diagram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Addendum - Specific Fuel
+Consumption}\label{addendum---specific-fuel-consumption}
+
+    \subsection{Homework problems.}\label{homework-problems.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Derive c* from isentropic relations.
+\item
+  Why is the RHS of c* equation difficult to measure for a rocket?
+\item
+  Compute choked mass flowrate for optimal nozzle example given and a
+  1mm diameter nozzle throat.
+\end{enumerate}
+
+    \subsection{Appendix - Derivation of U\_e/cstar
+todo.}\label{appendix---derivation-of-u_ecstar-todo.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
