@@ -1,0 +1,177 @@
+\documentclass[twocolumn]{memoir} %twocolumn
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+% Nicer default font (+ math font) than Computer Modern for most use cases
+\usepackage{mathpazo}
+\usepackage[labelfont=bf]{caption}
+\usepackage{xcolor} % Allow colors to be defined
+\usepackage{enumerate} % Needed for markdown enumerations to work
+\usepackage[]{geometry} % Used to adjust the document margins
+\usepackage{amsmath} % Equations
+\usepackage{amssymb} % Equations
+\usepackage{booktabs}  
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{dblfloatfix}
+\usepackage{tikz} 
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage{float}
+\usepackage{mhchem}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{footnote}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[sort&compress]{natbib}
+\usepackage[pdftex,colorlinks]{hyperref}
+\usepackage[noabbrev, capitalize]{cleveref}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+}
+
+\renewcommand*\familydefault{\sfdefault}
+\renewcommand\tabularxcolumn[1]{m{#1}}
+
+\makeatletter
+    \newcommand\reaction@[1]{\begin{equation}\ce{#1}\end{equation}}
+    \newcommand\reaction@nonumber[1]%
+        {\begin{equation*}\ce{#1}\end{equation*}}
+    \newcommand\reaction{\@ifstar{\reaction@nonumber}{\reaction@}}
+\makeatother
+
+\chapterstyle{demo2}
+\setlrmarginsandblock{0.75in}{0.75in}{*}
+\setulmarginsandblock{1in}{*}{1}
+\checkandfixthelayout 
+
+\usepackage{graphicx}
+\graphicspath{{./imgs/}}
+
+\title{Electric Propulsion}
+\author{Jonny Dyer}
+ 
+\begin{document}
+
+\chapter*{Chemical Combustion}
+
+\section{Motivation}
+Having now seen what it takes to move beyond Earth and around the Solar System, we 
+may start to see the limits of the old, faithful chemical propulsion systems.  With 
+the highest performance practical propellant system, \ce{LO2} and \ce{LH2}, we might
+achieve a vacuum specific impulse of around 450 seconds.  Even if we are willing to tolerate
+all that goes along with dealing with deep cryogens for in-space propulsion, this performance
+is still severly limiting from a mission mass perspective as can be seen in \cref{table:delta_V}.
+
+\begin{table}[H]
+\centering
+    \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}c>{\raggedright\arraybackslash}c}
+\toprule
+        \textbf{Mission} & $\Delta V$ \textbf{Required} & $\frac{m_L}{m_i}$\\
+\midrule
+        LEO to GEO & 4 km/sec &  0.32 \\
+        LEO to Lunar Orbit & 4 km/sec & 0.32 \\
+        LEO to Low Mars Orbit & 6.6 km/sec & 0.14\\
+        LEO to Moon Surface & 6-6.5 km/sec &  0.14 \\
+        LEO to Mars Surface & 10.7 km/sec\footnotemark & 0.002\\
+\bottomrule
+\end{tabularx}
+    \caption{Approximate mission $\Delta V$ for extra-LEO missions.  
+    Assumes LOX+LH2 propellant, structural mass fraction of 9\% }    
+\label{table:delta_V}        
+\end{table}
+\footnotetext{Since Mars has an atmosphere, aerobraking can be used, reducing this number somewhat}
+
+This is probably the biggest hurdle to a manned Mars mission - even though it is possible to
+achieve the required $\Delta V$ with chemical propellants, the payload delivered to surface
+is a tiny fraction of the mass we put in LEO to start (0.2\%).  Furthermore, this is for the
+minimum energy trajectory which takes nearly 200 days even with the best alignment of Earth and
+Mars. For these travel durations, many other things become difficult - consumables add to 
+mission mass and astronaut radiation exposure becomes a real concern.
+
+For these reasons, many believe that moving about the solar system more routinely will require
+different methods.  The method we will discuss here is Electric Propulsion.
+
+\section{What is Electric Propulsion?}
+Electric propulsion is a pretty broad term and essentially means any propulsion technology that
+relies on electrical energy as the primary means to accelerate its exhaust gasses.  Given the
+arguments in favor of chemical energy that we discussed in the combustion lectures, why would
+anyone do such a thing?\footnote{Remember that batteries have 25$\times$ lower energy density,
+4 order of magnitude lower power-density and are much, much better than in-space sources
+like solar!}  The answer is that while dense, chemical combustion \emph{couples} the energy
+source with the working fluid and thus the amount of energy we have availble is strictly
+limited by how much propellant we bring along.  Propellant means mass and then we're up against
+the tyranny of the rocket equation.  
+
+Given
+\begin{equation*}
+    \Delta V = C \ln\frac{m_i}{m_f}
+\end{equation*}
+%
+and
+\begin{equation*}
+    C^2 = \frac{P_{in}\eta}{\dot{m}}
+\end{equation*}
+%
+it follows that for \emph{any rocket system}
+%
+\begin{equation}
+    \Delta V \sim \sqrt{\frac{\eta P_{in}}{\dot{m}}}.
+    \label{eq:delV_P_dotm}
+\end{equation}
+%
+In the case of chemical, gasdynamic rockets $P$ and $\dot{m}$ are related
+%
+\begin{equation*}
+    P_{in} = \dot{m}\Delta H_{rxn}
+\end{equation*}
+%
+and $\eta$ is a function of a number of things including $M_w$, $\gamma$ and system pressures
+as we discussed in the lecture on rocket performance.  And so for chemical propulsion we arrive at
+\begin{equation}
+    \Delta V_{chem} \sim \sqrt{\Delta H_{rxn} \eta_{th}(\gamma, M_w, \ldots)}
+\end{equation}
+
+Note here that \emph{we really don't care what the input power is} because it is directly related
+to other, more fundamental aspects of the chemistry and combustion.
+
+If the energy source is independent of the working fluid (going back to \cref{eq:delV_P_dotm}), we can scale them separately and
+perhaps achieve a more optimal result.  For instance solar, while not dense in power, is
+essentially unlimited in total mission energy.  And nuclear fission may offer 3-4 $\times$
+the energy density of the best chemical propellants.
+
+Secondly, but separating the energy source from the working fluid we somewhat remove the
+shackles of equillibrium gas-dynamics and the second law of thermodynamics.  Remember that
+in chemical propulsion we throw as much as half or more of our energy away as unavailable 
+thermal energy.  And that the achievable exhaust velocity is strictly tied to the molecular
+weight of the propellants we choose.  Neither of these are necessarily true if we separate
+working fluid from energy.
+
+In general we find that electric propulsion comes in three basic forms:
+\begin{itemize}
+    \item \textbf{Electrothermal} - Gasses are heated electrically and then expanded through
+        a gasdynamic nozzle, much like chemical propulsion.
+    \item \textbf{Electrostatic} - Electrostatic body forces (Coulomb forces) accelerate charged
+        ions to high velocities
+    \item \textbf{Electromagnetic} - Ionized gasses accelerated by the interaction of external
+        magnetic fields with the induced fields associated with plasma currents
+\end{itemize}
+
+At first blush electrothermal propulsion doesn't sound like much improvement over chemical.  However,
+much higher temperatures may be achieved in an electrothermal thruster due to our ability to adjust
+how much energy / mass we put in the working fluid.  Furthermore we may chose a working fluid with low
+molecular weight (say hydrogen) without concern for where we get the chemical energy to go with it.
+Finally in the case of arcjets (which will be discussed shortly), the heated gasses may be highly
+anisotropic and non-equillibrium and thus not limited by second-law considerations.
+
+Electrothermal systems are relatively straightforward and were developed earlier than electrostatic and
+electromagnetic.  However the latter two have higher performance potential and have matured substantially
+over the last 30 years.  The future is definitely in these two technologies.
+
+\section{System-level performance considerations}
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+\end{document}
