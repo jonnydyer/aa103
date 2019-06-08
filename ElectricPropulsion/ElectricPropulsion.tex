@@ -112,13 +112,13 @@ Given
 %
 and
 \begin{equation*}
-    C^2 = \frac{P_{in}\eta}{\dot{m}}
+    C^2 = \frac{\eta P_{in}}{\dot{m}} = \frac{\eta E_p}{m_p}
 \end{equation*}
 %
 it follows that for \emph{any rocket system}
 %
 \begin{equation}
-    \Delta V \sim \sqrt{\frac{\eta P_{in}}{\dot{m}}}.
+    \Delta V \sim \sqrt{\frac{\eta P_{in}}{\dot{m}}} \sim \sqrt{\frac{\eta E_p}{m_p}}.
     \label{eq:delV_P_dotm}
 \end{equation}
 %
@@ -171,6 +171,113 @@ electromagnetic.  However the latter two have higher performance potential and h
 over the last 30 years.  The future is definitely in these two technologies.
 
 \section{System-level performance considerations}
+
+Given the propulsive efficiency defined as
+
+\begin{equation*}
+    \eta_p = \frac{\frac{1}{2}\dot{m}C^2}{P_{in}}
+\end{equation*}
+%
+for thrusters with negligible exhaust pressure so that $C = U_e$.
+
+Remembering
+\begin{equation*}
+    T = \dot{m}C
+\end{equation*}
+%
+we arrive at
+\begin{equation}
+    T = \frac{2 \eta_p P_{in}}{C}
+\end{equation}
+%
+Thus for any thruster we note that there is a relationship between thrust,
+propulsive efficiency, input power and exhaust velocity (or specific impulse):
+
+\begin{equation}
+    \frac{T}{P_{in}} = \frac{2 \eta_p}{C} = \frac{2 \eta_p}{g_0 I_{sp}}
+\end{equation}
+%
+For electric thrusters, the input power is delivered from an external source.
+The source itself and the associated power conversion or conditioning systems
+all have mass and in general that mass scales directly with power.
+
+\begin{equation*}
+    P_{in} = \alpha m_{pp}
+\end{equation*}
+%
+where $m_{pp}$ this the mass of the power systems and other masses that scale 
+with with power.  $\alpha$ is the system specific power density in W/kg.
+
+If we assume a constant mass flowrate system
+
+\begin{equation*}
+    \dot{m}_p = \frac{m_p}{t_b}
+\end{equation*}
+
+and combining the above we arrive at
+
+\begin{equation}
+    m_{pp} = \frac{m_p C^2}{2 \alpha \eta_p t_b}
+\end{equation}
+
+This leads us to the observation that there is no free lunch - if we want a 
+higher specific impulse we must either accept a hit on thrust or accept a dry
+mass penalty in our system.  Since dry mass directly impacts $\Delta V$ through
+the rocket equation, it is not obvious that this is a good thing.  We will also
+see later that in real mission analysis, very small thrusts have other penalties.
+
+Noting that the total initial system mass $m_i$ is
+%
+\begin{equation*}
+    m_i = m_l + m_p + m_{pp} = m_l + m_p \left[1 + \frac{C^2}{2 \alpha \eta_p t_b}\right].
+\end{equation*}
+%
+We can now write the rocket equation
+
+\begin{equation*}
+    \Delta V = C\ln{\left(\frac{ m_l + m_p \left[1 + \frac{C^2}{2 \alpha \eta_p t_b}\right]}
+    { m_l + m_p \left[\frac{C^2}{2 \alpha \eta_p t_b}\right]}\right)}
+\end{equation*}
+%
+Solving for the payload fraction
+
+\begin{equation}
+    \frac{m_l}{m_i} = \frac{1 - \left[e^{\Delta V / C} - 1\right]C^2/\left(2 \alpha \eta_p t_b\right)}{e^{\Delta V/C}}
+\end{equation}
+The grouping $2 \alpha \eta_p t_b$ is clearly an important one.  Considering units, we can define this as the square of a charcateristic speed such that
+
+\begin{equation}
+    v_c = \sqrt{2 \alpha \eta_p t_b}
+\end{equation}
+%
+$v_c$ can be interpreted as the speed the dry mass of the powerplant would achieve if its power output were fully converted to kinetic energy of its mass, $m_{pp}$.
+
+\section{Electrostatic Propulsion}
+
+\begin{equation}
+    \mathbf{f} = q\mathbf{E} = \frac{q^2}{4 \pi \epsilon_0 \| \mathbf{r}\|^2 }\mathbf{r}
+\end{equation}
+
+Richardson's Law:
+
+\begin{equation}
+    J = (1 - \tilde{r})A_0T^2 \exp{\left(\frac{-\phi}{kT}\right)}
+\end{equation}
+
+Child-Langmuir Law
+
+\begin{equation}
+    J = \frac{I}{A} = \frac{4 \epsilon_0}{9}\sqrt{\frac{2 q}{m_i}} \frac{V_T^{3/2}}{d^2}
+\end{equation}
+
+\begin{equation}
+    \frac{F}{A} = \frac{8}{9}\epsilon_0 \left(\frac{V_T}{d}\right)^2
+\end{equation}
+
+
+\begin{equation}
+    V_T = \frac{m_i C^2}{2 e}
+\end{equation}
 
 \bibliographystyle{unsrt}
 \bibliography{refs}
